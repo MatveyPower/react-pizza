@@ -2,26 +2,29 @@ import React from "react"
 
 import "./scss/app.scss"
 
-import Header from "./Header"
-
+import Header from "./components/Header"
+import Categories from "./components/Categories"
 
 function App() {
+    
+
+
+
     return (
         <div className="wrapper">
             <Header />
             <div className="content">
                 <div className="container">
                     <div className="content__top">
-                        <div className="categories">
-                            <ul>
-                                <li className="active">Все</li>
-                                <li>Мясные</li>
-                                <li>Вегетарианская</li>
-                                <li>Гриль</li>
-                                <li>Острые</li>
-                                <li>Закрытые</li>
-                            </ul>
-                        </div>
+                        <Categories onClickItem = {(name) => console.log(name)}
+                            items={[
+                                "Мясные",
+                                "Вегетарианская",
+                                "Гриль",
+                                "Острые",
+                                "Закрытые",
+                            ]}
+                        />
                         <div className="sort">
                             <div className="sort__label">
                                 <svg
