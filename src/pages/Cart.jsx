@@ -130,6 +130,7 @@ function Cart() {
                                 onRemove={onRemoveItem}
                                 onMinus={onMinusItem}
                                 onPlus={onPlusItem}
+                                imageUrl = {obj.imageUrl}
                             />
                         ))}
                     </div>
