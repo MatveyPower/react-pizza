@@ -1,20 +1,42 @@
-import React, { useState } from "react"
-import LoadingBlock from "./LoadingBlock"
+import React from "react"
+import classNames from "classnames"
+import Button from "../Button"
 
+function PizzaBlock({
+    id,
+    name,
+    imageUrl,
+    price,
+    types,
+    sizes,
+    onClickAddPizza,
+    addedCount,
+}) {
+    const availableTypes = ["тонкое", "традиционное"]
+    const availableSizes = [26, 30, 40]
 
-function PizzaBlock({ name, imageUrl, price, types, sizes, isLoading }) {
-
-    const avaiableTypes = ["тонкое", "традиционное"]
-    const avaiableSizes = [26, 30, 40]
-
-    const [activeType, setActiveType] = useState(types[0])
-    const [activeSize, setActiveSize] = useState(sizes[0])
+    const [activeType, setActiveType] = React.useState(types[0])
+    const [activeSize, setActiveSize] = React.useState(0)
 
     const onSelectType = (index) => {
         setActiveType(index)
     }
+
     const onSelectSize = (index) => {
         setActiveSize(index)
+    }
+
+    const onAddPizza = () => {
+        const obj = {
+            id,
+            name,
+            imageUrl,
+            price,
+            size: availableSizes[activeSize],
+            type: availableTypes[activeType],
+        }
+        onClickAddPizza(obj)
+        console.log('asdasdsad')
     }
 
     return (
@@ -23,26 +45,28 @@ function PizzaBlock({ name, imageUrl, price, types, sizes, isLoading }) {
             <h4 className="pizza-block__title">{name}</h4>
             <div className="pizza-block__selector">
                 <ul>
-                    {avaiableTypes.map((type, index) => (
+                    {availableTypes.map((type, index) => (
                         <li
                             key={type}
                             onClick={() => onSelectType(index)}
-                            className={`${
-                                activeType === index ? "active" : ""
-                            } ${!types.includes(index) ? "disabled" : ""} `}
+                            className={classNames({
+                                active: activeType === index,
+                                disabled: !types.includes(index),
+                            })}
                         >
                             {type}
                         </li>
                     ))}
                 </ul>
                 <ul>
-                    {avaiableSizes.map((size, index) => (
+                    {availableSizes.map((size, index) => (
                         <li
                             key={size}
                             onClick={() => onSelectSize(index)}
-                            className={`${
-                                activeSize === index ? "active" : ""
-                            } ${!sizes.includes(size) ? "disabled" : ""} `}
+                            className={classNames({
+                                active: activeSize === index,
+                                disabled: !sizes.includes(size),
+                            })}
                         >
                             {size} см.
                         </li>
@@ -50,8 +74,8 @@ function PizzaBlock({ name, imageUrl, price, types, sizes, isLoading }) {
                 </ul>
             </div>
             <div className="pizza-block__bottom">
-                <div className="pizza-block__price">{price}₽</div>
-                <div className="button button--outline button--add">
+                <div className="pizza-block__price">от {price} ₽</div>
+                <Button onClick={onAddPizza} className="button--add" outline>
                     <svg
                         width="12"
                         height="12"
@@ -65,14 +89,11 @@ function PizzaBlock({ name, imageUrl, price, types, sizes, isLoading }) {
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>2</i>
-                </div>
+                    {addedCount && <i>{addedCount}</i>}
+                </Button>
             </div>
         </div>
     )
 }
-
-
-
 
 export default PizzaBlock
