@@ -1,7 +1,9 @@
 import React, { useState } from "react"
+import LoadingBlock from "./LoadingBlock"
 
 
-function PizzaBlock({ name, imageUrl, price, types, sizes }) {
+function PizzaBlock({ name, imageUrl, price, types, sizes, isLoading }) {
+
     const avaiableTypes = ["тонкое", "традиционное"]
     const avaiableSizes = [26, 30, 40]
 
